@@ -1,9 +1,25 @@
 
-import { Comic, genreColors } from '@/types';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import Icon from '@/components/ui/icon';
 import { Link } from 'react-router-dom';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import Icon from '@/components/ui/icon';
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
+
+interface Comic {
+  id: number;
+  title: string;
+  image: string;
+  genres: string[];
+  description: string;
+  popular?: boolean;
+  new?: boolean;
+}
 
 interface ComicCardProps {
   comic: Comic;
@@ -11,52 +27,75 @@ interface ComicCardProps {
 
 const ComicCard = ({ comic }: ComicCardProps) => {
   return (
-    <Card className="comic-card group">
-      <div className="relative overflow-hidden">
-        <img 
-          src={comic.thumbnailImage} 
-          alt={comic.title}
-          className="comic-card-img group-hover:scale-105 transition-transform duration-300"
-        />
+    <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+      <div className="relative">
+        <Link to={`/comic/${comic.id}`}>
+          <img 
+            src={comic.image} 
+            alt={comic.title} 
+            className="w-full h-60 object-cover transition-transform hover:scale-105"
+          />
+        </Link>
         
         {comic.new && (
-          <div className="absolute top-2 right-2 bg-highlight text-black font-semibold text-xs px-2 py-1 rounded-full animate-pulse-light">
+          <Badge className="absolute top-2 right-2 bg-green-500">
             Новинка
-          </div>
+          </Badge>
         )}
         
-        {comic.popular && !comic.new && (
-          <div className="absolute top-2 right-2 bg-primary text-white font-semibold text-xs px-2 py-1 rounded-full">
+        {comic.popular && (
+          <Badge className="absolute top-2 right-16 bg-orange-500">
             Популярное
-          </div>
+          </Badge>
         )}
       </div>
       
-      <CardHeader className="p-4 pb-0">
-        <CardTitle className="text-lg line-clamp-1">{comic.title}</CardTitle>
-      </CardHeader>
-      
-      <CardContent className="p-4 pt-2">
-        <div className="mb-2">
-          {comic.genres.map((genre) => (
-            <span 
-              key={genre} 
-              className={`comic-card-tag ${genreColors[genre as keyof typeof genreColors]}`}
-            >
-              {genre}
-            </span>
+      <CardContent className="pt-4">
+        <div className="flex gap-1 flex-wrap mb-2">
+          {comic.genres.map((genre, index) => (
+            <Link to={`/categories?genre=${genre}`} key={index}>
+              <Badge variant="outline" className="text-xs">
+                {genre}
+              </Badge>
+            </Link>
           ))}
         </div>
-        <p className="text-sm text-muted-foreground line-clamp-2">{comic.description}</p>
+        
+        <Link to={`/comic/${comic.id}`}>
+          <h3 className="font-bold text-lg mb-2 hover:text-primary transition-colors">
+            {comic.title}
+          </h3>
+        </Link>
+        
+        <p className="text-sm text-gray-600 line-clamp-3">{comic.description}</p>
       </CardContent>
       
-      <CardFooter className="p-4 pt-0 flex gap-2 justify-between">
-        <Button asChild className="flex-1 bg-primary hover:bg-primary/80">
-          <Link to={`/comic/${comic.id}`}>Читать</Link>
-        </Button>
-        <Button variant="outline" size="icon" className="border-primary text-primary hover:bg-primary/10">
-          <Icon name="Share" />
-        </Button>
+      <CardFooter className="flex justify-between pt-0">
+        <Link to={`/comic/${comic.id}`}>
+          <Button>Читать</Button>
+        </Link>
+        
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon">
+              <Icon name="Share2" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem className="cursor-pointer">
+              <Icon name="Facebook" className="mr-2 h-4 w-4" />
+              <span>Facebook</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
+              <Icon name="Twitter" className="mr-2 h-4 w-4" />
+              <span>Twitter</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
+              <Icon name="Link" className="mr-2 h-4 w-4" />
+              <span>Копировать ссылку</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </CardFooter>
     </Card>
   );

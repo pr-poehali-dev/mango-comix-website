@@ -1,47 +1,60 @@
 
-import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   return (
-    <div className="relative overflow-hidden bg-gradient-to-b from-secondary/30 to-transparent py-12 md:py-20">
-      {/* Декоративные элементы */}
-      <div className="absolute -top-10 -left-10 w-40 h-40 rounded-full bg-primary/20 blur-3xl"></div>
-      <div className="absolute top-1/2 -right-10 w-32 h-32 rounded-full bg-secondary/30 blur-2xl"></div>
-      <div className="absolute -bottom-10 left-1/4 w-24 h-24 rounded-full bg-accent/20 blur-xl"></div>
-      
-      <div className="container px-4 mx-auto text-center">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-float text-foreground">
-          Добро пожаловать в <span className="text-primary">Mango<span className="text-secondary">Comix</span>!</span>
-        </h1>
-        
-        <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10 text-muted-foreground">
-          Открой для себя мир ярких историй и захватывающих приключений без регистрации
-        </p>
-        
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
-          <Button asChild size="lg" className="nav-button bg-primary shadow-[0_4px_0_0_rgba(0,0,0,0.1)]">
-            <Link to="/new">Смотреть новые</Link>
-          </Button>
-          
-          <Button asChild size="lg" className="nav-button bg-secondary text-white shadow-[0_4px_0_0_rgba(0,0,0,0.1)]">
-            <Link to="/random">Случайный комикс</Link>
-          </Button>
-          
-          <Button asChild size="lg" className="nav-button bg-accent text-white shadow-[0_4px_0_0_rgba(0,0,0,0.1)]">
-            <Link to="/popular">Топ за неделю</Link>
-          </Button>
-        </div>
-        
-        <div className="flex justify-center">
-          <img 
-            src="https://images.unsplash.com/photo-1611457194403-d3aca4cf9d11?q=80&w=300&auto=format&fit=crop" 
-            alt="Декоративная иллюстрация" 
-            className="h-24 object-contain opacity-80 animate-float"
-          />
+    <section className="bg-gradient-to-r from-primary/10 to-secondary/10 py-16">
+      <div className="container px-4">
+        <div className="flex flex-col lg:flex-row gap-8 items-center">
+          <div className="lg:w-1/2">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              Добро пожаловать в мир <span className="text-primary">манги</span> и <span className="text-primary">комиксов</span>
+            </h1>
+            <p className="text-lg mb-8">
+              MangoComix — это бесплатная онлайн-коллекция популярных и новых комиксов. 
+              Читайте в удобном формате без регистрации и подписок!
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link to="/new" className="px-6 py-3 bg-primary text-white rounded-full font-semibold hover:bg-primary/80 transition-colors">
+                Смотреть новые
+              </Link>
+              <Link to="/random" className="px-6 py-3 bg-secondary text-white rounded-full font-semibold hover:bg-secondary/80 transition-colors">
+                Случайный комикс
+              </Link>
+              <Link to="/popular" className="px-6 py-3 bg-accent text-white rounded-full font-semibold hover:bg-accent/80 transition-colors">
+                Топ за неделю
+              </Link>
+            </div>
+          </div>
+          <div className="lg:w-1/2 grid grid-cols-2 gap-4">
+            <div className="space-y-4">
+              <img 
+                src="https://m.media-amazon.com/images/I/81Ta0OSlPZL._AC_UF1000,1000_QL80_.jpg" 
+                alt="Comics preview" 
+                className="rounded-lg shadow-lg h-60 w-full object-cover"
+              />
+              <img 
+                src="https://m.media-amazon.com/images/M/MV5BZmQ5NGFiNWEtMmMyMC00MDdiLTg4YjktOGY5Yzc2MDUxMTE1XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_.jpg" 
+                alt="Comics preview" 
+                className="rounded-lg shadow-lg h-40 w-full object-cover"
+              />
+            </div>
+            <div className="space-y-4 pt-10">
+              <img 
+                src="https://m.media-amazon.com/images/M/MV5BMGY3Mzg3M2UtNzYxNi00ZDYzLTlhMTQtMjkzZTA2MWQ2NTMzXkEyXkFqcGdeQXVyNjAwNDUxODI@._V1_FMjpg_UX1000_.jpg" 
+                alt="Comics preview" 
+                className="rounded-lg shadow-lg h-40 w-full object-cover"
+              />
+              <img 
+                src="https://m.media-amazon.com/images/M/MV5BNTZiODQ0N2QtZWY0Zi00Y2VkLWI0N2MtMTc0YzYwM2NlZWQ0XkEyXkFqcGdeQXVyMTAwMzM3NDI3._V1_.jpg" 
+                alt="Comics preview" 
+                className="rounded-lg shadow-lg h-60 w-full object-cover"
+              />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
